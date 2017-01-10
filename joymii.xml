@@ -56,18 +56,11 @@
             <RegExp input="$$1" output="\1" dest="8">
                 <expression noclean="1">(&lt;Episode&gt;[^&lt;]+&lt;EpisodeNumber&gt;$$2&lt;/EpisodeNumber&gt;.*?&lt;/Episode&gt;)</expression>
             </RegExp>
-            <RegExp input="$$8" output="\1" dest="5">
+            <RegExp input="$$8" output="&lt;aired&gt;\1&lt;/aired&gt;" dest="4">
                 <expression>&lt;Aired&gt;([^&lt;]+)&lt;/Aired&gt;</expression>
             </RegExp>
-            <RegExp input="$$5" output="&lt;aired&gt;\1&lt;/aired&gt;" dest="4">
-                <expression>(.+)</expression>
-            </RegExp>
-            
-            <RegExp input="$$1" output="&lt;thumb aspect=&quot;poster&quot;&gt;\1cache/$$5&lt;/thumb&gt;" dest="4+">
-                <expression>Poster&gt;([^&lt;]+)poster.jpg&lt;/Poster</expression>
-            </RegExp>
-            <RegExp input="$$1" output="&lt;fanart&gt;&lt;thumb&gt;\1cache/$$5_f&lt;/thumb&gt;&lt;/fanart&gt;" dest="4+">
-                <expression>Poster&gt;([^&lt;]+)poster.jpg&lt;/Poster</expression>
+            <RegExp input="$$8" output="&lt;thumb&gt;\1&lt;/thumb&gt;" dest="4+">
+                <expression>&lt;Thumb&gt;([^&lt;]+)&lt;/Thumb&gt;</expression>
             </RegExp>
             
             <RegExp input="$$8" output="&lt;episode&gt;\1&lt;/episode&gt;" dest="4+">
@@ -77,7 +70,13 @@
                 <expression>&lt;EpisodeName&gt;([^&lt;]+)&lt;/EpisodeName&gt;</expression>
             </RegExp>
             <RegExp input="$$8" output="&lt;plot&gt;\1&lt;/plot&gt;" dest="4+">
-                <expression>&lt;Plot&gt;([^&lt;]+)&lt;/Plot&gt;</expression>
+                <expression fixchars="1" trim="1">&lt;Plot&gt;([^&lt;]+)&lt;/Plot&gt;</expression>
+            </RegExp>
+            <RegExp input="$$6" output="\1" dest="4+">
+                <RegExp input="$$8" output="&lt;actor&gt;&lt;thumb&gt;&lt;/thumb&gt;&lt;name&gt;\1&lt;/name&gt;&lt;role&gt;&lt;/role&gt;&lt;/actor&gt;" dest="6">
+                    <expression repeat="yes">&lt;Actor&gt;([^&lt;]+)&lt;/Actor&gt;</expression>
+                </RegExp>
+                <expression noclean="1">(.+)</expression>
             </RegExp>
             
             <expression noclean="1"/>
